@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congratulations - You Solved It!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('wallpaper1.jpg'); /* Updated Sherlock Holmes-themed background */
+            background-size: cover;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .congratulations-box {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 10px;
+            width: 60%;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        .congratulations-box h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+        }
+
+        .congratulations-box p {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #ffcc00;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        .footer a {
+            color: #ffcc00;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="congratulations-box" id="congratulationsBox">
+        <h1>Congratulations!</h1>
+        <p>You have cracked all the clues!</p>
+        <p>You are ready to assist Sherlock Holmes on his next adventure!</p>
+    </div>
+
+    <script>
+        // Simulate the trigger for displaying the congratulatory message
+        // This could be triggered after solving the puzzle in your actual game logic
+        function showCongratulations() {
+            const messageBox = document.getElementById('congratulationsBox');
+            messageBox.style.display = 'block'; // Show the message box
+        }
+
+        // Uncomment to simulate message display (in actual scenario, call this when puzzle is solved)
+        // showCongratulations();
+    </script>
+
+</body>
+</html>

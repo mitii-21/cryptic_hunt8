@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baker Street Cipher</title>
+    <style>
+        body {
+            background-image: url('wallpaper1.jpg'); /* Sherlock Holmes-themed background */
+            background-size: cover;
+            background-position: center;
+            color: #f5ecec;
+            font-family: 'Georgia', serif;
+            text-align: center;
+        }
+        .container {
+            margin-top: 50px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+        }
+        h1, h2 {
+            color: #c19a6b;
+        }
+        .clue {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .input-box {
+            padding: 10px;
+            margin: 20px;
+            font-size: 18px;
+            border: 2px solid #c19a6b;
+            background: #2c2c2c;
+            color: white;
+            width: calc(100% - 22px);
+            box-sizing: border-box;
+            border-radius: 5px;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            background: #c19a6b;
+            color: black;
+            border: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background: #a67c52;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .correct {
+            color: #4CAF50;
+        }
+        .incorrect {
+            color: #ff4c4c;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🔍 Baker Street Cipher 🔍</h1>
+        <h2>Can you crack the code?</h2>
+        <div class="clue">
+            <p><strong>Ciphertext:</strong> "WKLV LV D VHFUHW PHVVDJH IURP EDNHU VWUHHW"</p>
+            <p><strong>Clue:</strong> "The game is afoot! Shift your letters three times to the left."</p>
+            <p>Enter the decoded message below:</p>
+        </div>
+
+        <input type="text" id="answer" class="input-box" placeholder="Enter your answer here...">
+        <button class="btn" onclick="checkAnswer()">Submit Answer</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function checkAnswer() {
+            const correctAnswer = "THIS IS A SECRET MESSAGE FROM BAKER STREET"; 
+            let userAnswer = document.getElementById("answer").value.trim().toUpperCase(); 
+            
+            const resultDiv = document.getElementById("result"); 
+
+            if (userAnswer === correctAnswer) {
+                window.location.href = "clue3.html";
+
+            } else {
+                resultDiv.textContent = "❌ Incorrect answer. Try again!";
+                resultDiv.className = "incorrect";
+            }
+        }
+    </script>
+
+</body>
+</html>

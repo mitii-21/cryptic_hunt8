@@ -1,0 +1,65 @@
+<!-- Clue 3: Map Puzzle -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Clue 3: CIPHER PUZZLE</title>
+    <style>
+        body {
+            background-image: url('wallpaper1.jpg'); /* Updated Sherlock Holmes-themed background */
+            background-size: cover;
+            background-position: center;
+            color: #f8f1e4;
+            font-family: 'Georgia', serif;
+            text-align: center;
+        }
+        .container {
+            margin-top: 50px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+        }
+        .input-box {
+            padding: 10px;
+            margin: 20px;
+            font-size: 18px;
+            border: 2px solid #c19a6b;
+            background: #2c2c2c;
+            color: white;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            background: #c19a6b;
+            color: black;
+            border: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background: #a67c52;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Clue 2: Decipher the Secret Message</h1>
+        <p>At Baker Street, Holmes finds an old parchment with a strange encoded note.It reads: </p>
+        <p>Can you guess secipher and solve this cryptic message:</p>
+        <p><strong>13 15 18 9 1 18 20 25</strong></p>
+        <input type="text" id="answer3" class="input-box" placeholder="Enter your answer">
+        <button class="btn" onclick="checkAnswer3()">Submit</button>
+    </div>  
+    <script>
+        function checkAnswer3() {
+            let answer = document.getElementById("answer3").value.toUpperCase();
+            if (answer === "MORIARTY") {
+                window.location.href = "clue4.html";
+            } else {
+                alert("Incorrect! Try again.");
+            }
+        }
+    </script>
+</body>
+</html>

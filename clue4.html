@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sherlock Holmes - Cryptic Hunt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('wallpaper1.jpg'); /* Updated Sherlock Holmes-themed background */
+            background-size: cover;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-top: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        h2 {
+            font-size: 1.5em;
+            margin-top: 10px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        .puzzle-container {
+            margin-top: 40px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            border-radius: 10px;
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .puzzle-instructions {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .crossword-grid {
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: repeat(15, 30px);
+            grid-gap: 2px;
+            justify-content: center;
+        }
+
+        .crossword-grid div {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            font-size: 1.2em;
+            border: 1px solid #fff;
+            background-color: rgba(0, 0, 0, 0.7);
+            cursor: pointer;
+        }
+
+        .crossword-grid div.found {
+            background-color: #ffcc00;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 1.1em;
+        }
+
+        .footer a {
+            color: #ffcc00;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Sherlock Holmes: Cryptic Hunt</h1>
+        <h2>Clue 4: The Hidden Words</h2>
+    </header>
+
+    <div class="puzzle-container">
+        <div class="puzzle-instructions">
+            <p>Your mission is simple: Find the three key words hidden in the crossword puzzle below. These words will lead you closer to solving the mystery!</p>
+            <p><strong>Words to find:</strong> Answers of the previous clues!!</p>
+        </div>
+        <br>
+        <div class="grid-instructions">
+            <p>1.Once you found a word,you have to deselect all the letters and then select another word.
+                <br>2.You have to select all the letters in the correct order.
+                <br>3.You can select/deselect each letter just by clicking once.
+            </p>
+        </div>
+
+        <!-- Crossword Grid -->
+        <div class="crossword-grid" id="crosswordGrid">
+            <!-- Dynamically generated puzzle cells go here -->
+        </div>
+
+    </div>
+
+    <script>
+        const crossword = [
+            ["T", "A", "K", "N", "G", "B", "Z", "M", "I", "H", "Q", "W", "V", "L", "T"],
+            ["J", "U", "I", "C", "E", "A", "X", "H", "P", "R", "O", "B", "W", "F", "A"],
+            ["E", "D", "A", "P", "E", "L", "R", "A", "D", "C", "P", "I", "B", "U", "B"],
+            ["S", "B", "U", "L", "O", "L", "I", "M", "R", "K", "E", "R", "F", "Q", "R"],
+            ["E", "N", "S", "O", "B", "K", "R", "M", "D", "L", "B", "R", "C", "Z", "Y"],
+            ["S", "Q", "O", "B", "A", "S", "R", "W", "O", "S", "A", "P", "N", "M", "I"],
+            ["T", "A", "P", "R", "M", "I", "T", "P", "L", "E", "R", "O", "C", "I", "D"],
+            ["N", "E", "E", "A", "S", "R", "B", "P", "G", "F", "K", "R", "K", "B", "L"],
+            ["C", "U", "O", "H", "A", "U", "N", "B", "A", "E", "E", "F", "L", "G", "I"],
+            ["A", "R", "B", "I", "A", "Q", "K", "E", "P", "I", "R", "B", "P", "E", "A"],
+            ["S", "U", "G", "K", "L", "Q", "N", "D", "I", "L", "L", "N", "C", "T", "Y"],
+            ["M", "H", "P", "I", "T", "S", "K", "O", "L", "U", "I", "V", "Z", "S", "I"],
+            ["L", "L", "S", "R", "A", "M", "F", "O", "X", "D", "B", "C", "P", "P", "H"],
+            ["A", "S", "A", "T", "U", "R", "B", "L", "X", "E", "W", "R", "N", "F", "F"],
+            ["T", "F", "B", "M", "O", "R", "I", "A", "R", "T", "Y", "Q", "P", "E", "N"],
+            ["K", "O", "W", "A", "Z", "J", "T", "N", "E", "Y", "E", "F", "T", "L", "P"]
+        ];
+
+        const wordsToFind = ['BARKER', 'PENCIL', 'MORIARTY'];
+        let foundWords = [];  // Store found words
+        let selectedCells = [];
+        const crosswordGridElement = document.getElementById("crosswordGrid");
+
+        // Function to render the crossword grid
+        function renderGrid() {
+            crossword.forEach((row, rowIndex) => {
+                row.forEach((letter, colIndex) => {
+                    let cell = document.createElement("div");
+                    cell.textContent = letter;
+                    cell.dataset.row = rowIndex;
+                    cell.dataset.col = colIndex;
+                    crosswordGridElement.appendChild(cell);
+
+                    cell.addEventListener('click', () => handleCellClick(cell));
+                });
+            });
+        }
+
+        // Function to handle cell clicks (select/deselect)
+        function handleCellClick(cell) {
+            const row = parseInt(cell.dataset.row);
+            const col = parseInt(cell.dataset.col);
+            const letter = crossword[row][col];
+
+            // Check if the cell is already selected
+            const cellIndex = selectedCells.findIndex(selected => selected.row === row && selected.col === col);
+
+            if (cellIndex === -1) {
+                // Not selected, so select it
+                selectedCells.push({ row, col, letter });
+                cell.classList.add('found');
+            } else {
+                // Already selected, so deselect it
+                selectedCells.splice(cellIndex, 1);
+                cell.classList.remove('found');
+            }
+
+            // Check if we found a word
+            checkWord(selectedCells);
+        }
+
+        // Function to check if a word has been found (checking horizontally, vertically, diagonally)
+        function checkWord(selectedCells) {
+            let word = selectedCells.map(cell => cell.letter).join('');
+            if (wordsToFind.includes(word) && !foundWords.includes(word)) {
+                foundWords.push(word); // Add word to found words list
+                alert('You found a word: ' + word);
+                highlightFoundWord(word);
+                deselectWord(selectedCells);
+            }
+
+            // Check if all words have been found
+            if (foundWords.length === wordsToFind.length) {
+                window.location.href ="final.html";
+            }
+        }
+
+        // Function to highlight the found word in the grid
+        function highlightFoundWord(word) {
+            selectedCells.forEach(cell => {
+                if (word.includes(cell.letter)) {
+                    const cellElement = crosswordGridElement.children[cell.row * crossword.length + cell.col];
+                    cellElement.classList.add('found');
+                }
+            });
+        }
+
+        // Function to deselect the word after it's found
+        function deselectWord(selectedCells) {
+            selectedCells.forEach(cell => {
+                const cellElement = crosswordGridElement.children[cell.row * crossword.length + cell.col];
+                cellElement.classList.remove('found');
+            });
+            selectedCells = []; // Reset the selected cells
+        }
+
+        // Function to display a completion message when all words are found
+        
+        
+
+        // Render the grid
+        renderGrid();
+    </script>
+
+</body>
+</html>
